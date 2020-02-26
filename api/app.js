@@ -2,13 +2,13 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-let passport = require("passport");
 require("dotenv").config();
-
-let { usersRouter, ownersRouter, walkersRouter } = require("./routes");
+let mongoose = require("mongoose");
+let passport = require("passport");
 
 var app = express();
-let mongoose = require("mongoose");
+
+let { usersRouter, ownersRouter, walkersRouter } = require("./routes");
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -19,7 +19,7 @@ mongoose
   .catch(e => console.log("db not connected", e));
 
 // view engine setup
-app.set("view engine", "jade");
+// app.set("view engine", "jade");
 
 app.use(passport.initialize());
 

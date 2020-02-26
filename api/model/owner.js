@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 const moment = require("moment");
 const { Schema } = mongoose;
 
@@ -20,10 +21,6 @@ const ownerSchema = new Schema({
     type: String,
     default: ""
   },
-  password: {
-    type: String,
-    required: true
-  },
   phone: {
     type: String,
     required: true
@@ -33,5 +30,7 @@ const ownerSchema = new Schema({
     default: () => moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
   }
 });
+
+ownerSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
 module.exports = mongoose.model("Owner", ownerSchema);
